@@ -19,8 +19,7 @@ file (see. src\__tests__\features\step-definitions\reuse-steps-example.steps.ts)
 Jest-cucumber is an amazing project but forces you to write a lot of repetitive scaffolding code to setup the link betwen Jest and Cucumber.
 With Jest-Cucumber-Fusion2, it really takes only the minimal code possible:
  - a Cucumber Feature file with gherkin sentences
- - a Cucumber Step definition file with your javascript validation code, ended with the `Fusion` function to link the two
-
+ - a Cucumber Step definition file with your javascript validation code, ended with the `Fusion` function to link the two  
 
 Jest-cucumber-fusion is awesom project but it seems it lost it support and major bug are not fixed.
 Also jest-cucumber-fusion is used pure JavaScript and jest-cucumber-fusion2 use Typescript instead.
