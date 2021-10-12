@@ -1,8 +1,8 @@
-const { Given, When, Then, And, But, Fusion } = require('../../../index');
+import { Given, When, Then, And, But, Fusion } from '../../../index';
+import { Rocket } from '../../src/rocket';
+import { stepArgType } from '../step-definitions/step-helpers';
 
-const { Rocket } = require('../../src/rocket');
-
-let rocket;
+let rocket: Rocket;
 
 Given('I am Elon Musk attempting to launch a rocket into space', () => {
   rocket = new Rocket();
@@ -25,10 +25,13 @@ Then('the rocket should end up in space', () => {
   expect(rocket.isInSpace).toBe(true);
 });
 
-/// Complex Regex :  at position (\[(?: *\d+(?: |, |,)*)+\]) with no value
+// Complex Regex :  at position (\[(?: *\d+(?: |, |,)*)+\]) with no value
 And(
   /^my position in 2D space is (\[(?: *\d+(?: |, |,)*)+\])$/,
-  (arrayPosition) => {
+  (arrayPosition: stepArgType) => {
+    if (typeof arrayPosition !== 'string')
+      throw new Error('Invalid step parameter type');
+
     const isAnArray = JSON.parse(arrayPosition);
     expect(isAnArray).toBeInstanceOf(Array);
   }

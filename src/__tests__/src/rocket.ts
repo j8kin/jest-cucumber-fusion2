@@ -1,4 +1,7 @@
-class Rocket {
+export class Rocket {
+  isInSpace: boolean;
+  boostersLanded: boolean;
+
   constructor() {
     this.isInSpace = false;
     this.boostersLanded = true;
@@ -9,5 +12,3 @@ class Rocket {
     this.boostersLanded = true;
   }
 }
-
-module.exports.Rocket = Rocket;
