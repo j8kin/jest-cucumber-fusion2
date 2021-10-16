@@ -10,7 +10,7 @@ Before(() => {
 });
 
 Given(/^ik heb een t-shirt$/, (item: stepArgType) => {
-  onlineSales.hasItem('Rick Astley t-shirt');
+  expect(onlineSales.hasItem('Rick Astley t-shirt')).toBeTruthy();
 });
 
 When(/^ik een t-shirt wil verkopen$/, (item: stepArgType) => {
@@ -21,17 +21,18 @@ Then(/^ontvang ik €22$/, (item: stepArgType) => {
   expect(salesPrice).toEqual(22);
 });
 
-And(/^ben ik blij$/, (item: stepArgType) => {
-  expect('ik').not.toEqual('boos');
+And(/^ben ik (blij|boos)$/, (mood: stepArgType) => {
+  if (typeof mood !== 'string') throw new Error('Invalid step parameter type');
+  expect(mood).not.toEqual('boos');
 });
 
 But(/^heb ik geen t-shirts over$/, (item: stepArgType) => {
-  expect(onlineSales.listedItems).not.toContain('Rick Astley t-shirt');
+  expect(onlineSales.allItems()).not.toContain('Rick Astley t-shirt');
 });
 
 Given(/^ik heb een: (.*)$/, (item: stepArgType) => {
   if (typeof item !== 'string') throw new Error('Invalid step parameter type');
-  onlineSales.hasItem(item);
+  expect(onlineSales.hasItem(item)).toBeTruthy();
 });
 
 When(/^ik (.*) verkoop$/, (item: stepArgType) => {
@@ -50,7 +51,7 @@ Then(
 
 Given(/^'(.*)' is te koop$/, (object: stepArgType) => {
   if (typeof object !== 'string') throw new Error('Invalid step parametertype');
-  onlineSales.hasItem(object);
+  expect(onlineSales.hasItem(object)).toBeTruthy();
 });
 
 When(/^ik '(.*)' koop$/, (object: stepArgType) => {
@@ -59,19 +60,23 @@ When(/^ik '(.*)' koop$/, (object: stepArgType) => {
 });
 
 Then(/^heb ik €(\d+) uitgegeven$/, (amount: stepArgType) => {
-  expect(salesPrice).toEqual(100);
+  if (typeof amount !== 'string') throw new Error('Invalid step parametertype');
+  expect(salesPrice).toEqual(Number(amount));
 });
 
 Given('mijn voorraad bevat:', (table: stepArgType) => {
   if (typeof table === 'string') throw new Error('Invalid step parametertype');
+  onlineSales.listedItems.clear(); // remove all items and fill them from table
   table.forEach((row) => {
-    onlineSales.hasItem(row.Object);
+    onlineSales.buyItem(row.Object, row.Object.length * 3); // add with dummy price
   });
 });
 
 When('ik de volgende producten toevoeg:', (table: stepArgType) => {
   if (typeof table === 'string') throw new Error('Invalid step parametertype');
-  onlineSales.hasItem(table[0].Object);
+  table.forEach((rec) => {
+    onlineSales.buyItem(rec.Object, 0);
+  });
 });
 
 Then(
@@ -80,11 +85,12 @@ Then(
     if (typeof nbre !== 'string') throw new Error('Invalid step parametertype');
     if (typeof table === 'string')
       throw new Error('Invalid step parametertype');
-    expect(onlineSales.allItems.length).toBe(Number(nbre));
-    expect(onlineSales.allItems.length).toBe(table.length);
 
-    table.forEach((_row, index) => {
-      expect(onlineSales.allItems).toContain(table[index].Object);
+    expect(onlineSales.allItems().length).toBe(Number(nbre));
+    expect(onlineSales.allItems().length).toBe(table.length);
+
+    table.forEach((rec) => {
+      expect(onlineSales.allItems()).toContain(rec.Object);
     });
   }
 );
