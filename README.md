@@ -10,7 +10,8 @@ Jest-Cucumber-Fusion2 then allows you to link these Cucumber tests to your javas
 Adding a `Fusion`call, the links between your Feature definition and your Steps definition is handled automatically and the necessary scaffolding for jest-cucumber is build behind the scene.
 Now use jest naturally in your project like you would use the native Cucumber library.
 
-This project is forked from [Jest-cucumber-fusion](https://github.com/b-yond-infinite-network/jest-cucumber-fusion). It fix some Major bug [Issue#27](https://github.com/b-yond-infinite-network/jest-cucumber-fusion/issues/27) and converted to use Typescript instead of JavaScript
+This project is forked from [Jest-cucumber-fusion](https://github.com/b-yond-infinite-network/jest-cucumber-fusion) to fix some Major bug [Issue#27](https://github.com/b-yond-infinite-network/jest-cucumber-fusion/issues/27) and converted to use Typescript instead of JavaScript.  
+It seems `jest-cucumber-fusion` is abandoned.  
 The only one difference that jest-cucumber-fusion2 is not supported nested step definitions in steps 
 file (see. src\__tests__\features\step-definitions\reuse-steps-example.steps.ts)
 
@@ -21,8 +22,8 @@ With Jest-Cucumber-Fusion2, it really takes only the minimal code possible:
  - a Cucumber Feature file with gherkin sentences
  - a Cucumber Step definition file with your javascript validation code, ended with the `Fusion` function to link the two  
 
-Jest-cucumber-fusion is awesom project but it seems it lost it support and major bug are not fixed.
-Also jest-cucumber-fusion is used pure JavaScript and jest-cucumber-fusion2 use Typescript instead.
+Jest-cucumber-fusion is awesom project but it seems it lost it support and major bug is not fixed.  
+Also jest-cucumber-fusion is used pure JavaScript and jest-cucumber-fusion2 use Typescript instead.  
 
 ## Getting Started
 
