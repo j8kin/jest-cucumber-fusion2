@@ -1,27 +1,31 @@
-const itemPrices: Map<string, number> = new Map<string, number>([
-  ['Autographed Neil deGrasse Tyson book', 100],
-  ['Rick Astley t-shirt', 22],
-  ['An idea to replace EVERYTHING with blockchains', 0]
-]);
-
 export class OnlineSales {
-  listedItems: string[];
+  listedItems: Map<string, number>;
 
   constructor() {
-    this.listedItems = [];
+    this.listedItems = new Map<string, number>([
+      ['Autographed Neil deGrasse Tyson book', 100],
+      ['Rick Astley t-shirt', 22],
+      ['An idea to replace EVERYTHING with blockchains', 0]
+    ]);
   }
 
-  listItem(name: string): void {
-    this.listedItems.push(name);
+  hasItem = (name: string): boolean => this.listedItems.has(name);
+  allItems = (): string[] => [...this.listedItems.keys()];
+
+  buyItem(name: string, price: number): void {
+    this.listedItems.set(name, price);
   }
+
+  changePrice = (name: string, newPrice: number): void => {
+    this.listedItems.set(name, newPrice);
+  };
 
   sellItem(name: string): number | undefined {
-    const itemIndex = this.listedItems.indexOf(name);
+    if (this.listedItems.has(name)) {
+      const sellPrice = this.listedItems.get(name);
+      this.listedItems.delete(name);
 
-    if (itemIndex !== -1) {
-      this.listedItems.splice(itemIndex, 1);
-
-      return itemPrices.get(name);
+      return sellPrice;
     } else {
       return undefined;
     }

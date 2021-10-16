@@ -20,8 +20,10 @@ type stepExec = [
 ];
 
 type StepsType = 'given' | 'when' | 'then' | 'and' | 'but';
+
 let before: CallBack | undefined = undefined;
 let after: CallBack | undefined = undefined;
+
 const stepsDefinition: Map<StepsType, Map<string | RegExp, CallBack>> = new Map<
   StepsType,
   Map<string | RegExp, CallBack>
@@ -96,9 +98,12 @@ const matchJestTestSuiteWithCucumberFeature = (
   afterEachFn: jest.Lifecycle,
   testFn: DefineScenarioFunctionWithAliases
 ) => {
-  featureScenariosOrOutline.forEach((currentScenarioOrOutline) => {
-    if (before != null) beforeEachFn(before);
+  // register before once before all scenario
+  //   otherwise it register as much as number scenarios exists
+  // Number of calls verified in before-and-after.suites.ts
+  if (before != null) beforeEachFn(before);
 
+  featureScenariosOrOutline.forEach((currentScenarioOrOutline) => {
     matchJestTestWithCucumberScenario(
       currentScenarioOrOutline.title,
 
@@ -120,9 +125,10 @@ const matchJestTestSuiteWithCucumberFeature = (
         : currentScenarioOrOutline.steps,
       testFn
     );
-
-    if (after != null) afterEachFn(after);
   });
+
+  // register after once before all scenario (see more infore above)
+  if (after != null) afterEachFn(after);
 };
 
 const matchJestTestWithCucumberScenario = (

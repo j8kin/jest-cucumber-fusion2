@@ -1,6 +1,5 @@
 Feature: Step not exist
-
     There are no steps at all
 
-    Scenario: Scenario has not exist step
+    Scenario: All steps in scenario are not exists
         Given This step not exist!

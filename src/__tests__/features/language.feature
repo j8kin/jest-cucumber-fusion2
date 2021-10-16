@@ -1,5 +1,5 @@
 # language: nl
-
+@exclude
 Functionaliteit: Online verkopen
 
     Scenario: t-shirt verkopen
@@ -14,19 +14,18 @@ Functionaliteit: Online verkopen
         Als ik <Object> verkoop
         Dan zou ik er €<Bedrag> voor moeten krijgen
 
-        Voorbeelden:
-
-            | Object                                         | Bedrag |
-            | Autographed Neil deGrasse Tyson book           | 100    |
-            | Rick Astley t-shirt                            | 22     |
-            | An idea to replace EVERYTHING with blockchains | 0      |
+    Voorbeelden:
+        | Object                                         | Bedrag |
+        | Autographed Neil deGrasse Tyson book           | 100    |
+        | Rick Astley t-shirt                            | 22     |
+        | An idea to replace EVERYTHING with blockchains | 0      |
 
     Scenario: Boek kopen
-        Gegeven 'Autographed Neil deGrasse Tyson book' is te koop
-        Als ik 'Autographed Neil deGrasse Tyson book' koop
-        Dan heb ik €100 uitgegeven
+		Gegeven 'Autographed Neil deGrasse Tyson book' is te koop
+		Als ik 'Autographed Neil deGrasse Tyson book' koop
+		Dan heb ik €100 uitgegeven
 
-    Scenario: voorraad bijvullen
+	Scenario: voorraad bijvullen
         Gegeven mijn voorraad bevat:
             | Object                               |
             | Autographed Neil deGrasse Tyson book |
